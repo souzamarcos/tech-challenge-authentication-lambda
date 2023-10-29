@@ -23,6 +23,12 @@ dependencies {
 
     implementation("org.springframework.cloud:spring-cloud-function-adapter-aws:4.0.5")
 
+    //spring data
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.1.3")
+    implementation("com.mysql:mysql-connector-j:8.0.33")
+    implementation("org.hibernate.orm:hibernate-core:6.2.4.Final")
+    implementation("org.hibernate.validator:hibernate-validator:6.2.4.Final")
+
     compileOnly(group = "com.googlecode.json-simple", name = "json-simple", version = "1.1.1", ext = "jar")
 
 
