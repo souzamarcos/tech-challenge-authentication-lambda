@@ -1,2 +1,2 @@
-rootProject.name = "lambda"
+rootProject.name = "authentication-lambda"
 
