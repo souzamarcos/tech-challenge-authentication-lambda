@@ -16,30 +16,26 @@ java {
 
 dependencies {
     implementation("com.amazonaws:aws-lambda-java-core:1.2.1")
-    implementation("com.amazonaws:aws-lambda-java-events:3.11.1")
+    implementation("com.amazonaws:aws-java-sdk-dynamodb:1.12.576")
     implementation("com.auth0:java-jwt:4.2.1")
     implementation("com.googlecode.json-simple:json-simple:1.1.1")
-    implementation("com.amazonaws:aws-lambda-java-log4j2:1.5.1")
-
-    implementation("org.springframework.cloud:spring-cloud-function-adapter-aws:4.0.5")
-
+    implementation("com.google.code.gson:gson:2.10.1")
+    runtimeOnly("com.amazonaws:aws-lambda-java-log4j2:1.5.1")
     compileOnly(group = "com.googlecode.json-simple", name = "json-simple", version = "1.1.1", ext = "jar")
 
 
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2")
-    testImplementation("org.mockito:mockito-core:2.1.0")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.3")
 }
-
 
 tasks.test {
     useJUnitPlatform()
 }
 
-
 tasks {
-   register("createZip", Zip::class) {
+    register("createZip", Zip::class) {
         from(processResources)
         from(compileJava)
+        archiveFileName.set("lambda-client-authentication-dynamo.zip")
         into("lib") {
             from(configurations.runtimeClasspath)
         }
