@@ -37,7 +37,7 @@ tasks {
     register("createZip", Zip::class) {
         from(processResources)
         from(compileJava)
-        archiveFileName.set("lambda-client-authentication-with-secret.zip")
+        archiveFileName.set("lambda-client-authentication.zip")
         into("lib") {
             from(configurations.runtimeClasspath)
         }
