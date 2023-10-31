@@ -12,12 +12,14 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRespon
 public class SecretUtils {
     private static final String REGION_US_EAST = "us-east-1";
 
+    private static final String TOKEN_JWT_SECRET_NAME = "token_jwt";
+
     private SecretUtils() {
 
     }
 
     public static TokenJwtSecret getTokenJwtSecret() {
-        TokenJwtSecret token = new Gson().fromJson(SecretUtils.getSecret("token-jwt-secret"), TokenJwtSecret.class);
+        TokenJwtSecret token = new Gson().fromJson(SecretUtils.getSecret(TOKEN_JWT_SECRET_NAME), TokenJwtSecret.class);
         token.isValid();
         return token;
     }
