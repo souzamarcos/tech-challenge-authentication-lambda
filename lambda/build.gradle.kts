@@ -20,6 +20,8 @@ dependencies {
     implementation("com.auth0:java-jwt:4.2.1")
     implementation("com.googlecode.json-simple:json-simple:1.1.1")
     implementation("com.google.code.gson:gson:2.10.1")
+    implementation(platform("software.amazon.awssdk:bom:2.20.56"))
+    implementation("software.amazon.awssdk:secretsmanager:2.21.10")
     runtimeOnly("com.amazonaws:aws-lambda-java-log4j2:1.5.1")
     compileOnly(group = "com.googlecode.json-simple", name = "json-simple", version = "1.1.1", ext = "jar")
 
@@ -35,7 +37,7 @@ tasks {
     register("createZip", Zip::class) {
         from(processResources)
         from(compileJava)
-        archiveFileName.set("lambda-client-authentication-dynamo.zip")
+        archiveFileName.set("lambda-client-authentication-with-secret.zip")
         into("lib") {
             from(configurations.runtimeClasspath)
         }
