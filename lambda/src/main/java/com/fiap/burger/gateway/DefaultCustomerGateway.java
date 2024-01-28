@@ -17,13 +17,14 @@ import java.util.Optional;
 public class DefaultCustomerGateway {
     private static final String DYNAMODB_CUSTOMER_TABLE = System.getenv("CUSTOMER_TABLE");
     private static final Regions REGION = Regions.US_EAST_1;
+M    private static final String INDEX_NAME = "cpf";
 
 
     public Optional<Customer> getCustomerId(String cpf) {
         AmazonDynamoDB dbClient = AmazonDynamoDBClientBuilder.standard().withRegion(REGION).build();
         DynamoDB dynamoDb = new DynamoDB(dbClient);
         Table table = dynamoDb.getTable(DYNAMODB_CUSTOMER_TABLE);
-        Index index = table.getIndex("id-cpf");
+        Index index = table.getIndex(INDEX_NAME);
 
         QuerySpec querySpec = new QuerySpec();
         querySpec.withHashKey("cpf", cpf);
