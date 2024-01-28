@@ -3,8 +3,8 @@ package com.fiap.burger.handler;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
-import com.fiap.burger.entity.Client;
-import com.fiap.burger.gateway.DefaultClientGateway;
+import com.fiap.burger.entity.Customer;
+import com.fiap.burger.gateway.DefaultCustomerGateway;
 import com.fiap.burger.misc.token.TokenJwtUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -35,13 +35,13 @@ public class LambdaHandler implements RequestStreamHandler {
             String cpf = extractCpfFromInput(input);
 
             logger.log("Pegando id a partir do cpf: " + cpf);
-            Optional<Client> maybeClient = new DefaultClientGateway().getClientId(cpf);
+            Optional<Customer> maybeCustomer = new DefaultCustomerGateway().getCustomerId(cpf);
 
-            if (maybeClient.isPresent()) {
+            if (maybeCustomer.isPresent()) {
                 logger.log("Gerando Token");
-                String token = TokenJwtUtils.generateToken(maybeClient.get());
+                String token = TokenJwtUtils.generateToken(maybeCustomer.get());
 
-                logger.log("Montando Response Okay to cpf: " + cpf + " and id: "+ maybeClient.get().getId());
+                logger.log("Montando Response Okay to cpf: " + cpf + " and id: "+ maybeCustomer.get().getId());
                 response = buildResponseOkay(token);
             } else {
                 logger.log("Montando Response Not Found to cpf: " + cpf);
@@ -80,7 +80,7 @@ public class LambdaHandler implements RequestStreamHandler {
 
     private JSONObject buildResponseOkay(String token) {
         JSONObject responseBody = new JSONObject();
-        responseBody.put("clientToken", token);
+        responseBody.put("customerToken", token);
 
         JSONObject responseJson = new JSONObject();
         responseJson.put("statusCode", "200");
@@ -91,7 +91,7 @@ public class LambdaHandler implements RequestStreamHandler {
 
     private JSONObject buildResponseNotFound(String cpf) {
         JSONObject responseBody = new JSONObject();
-        responseBody.put("message", "No client was found with cpf: " + cpf);
+        responseBody.put("message", "No customer was found with cpf: " + cpf);
 
         JSONObject responseJson = new JSONObject();
         responseJson.put("statusCode", "404");
