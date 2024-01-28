@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.fiap.burger.entity.Client;
+import com.fiap.burger.entity.Customer;
 import com.fiap.burger.misc.secret.SecretUtils;
 
 import java.util.Date;
@@ -18,13 +18,13 @@ public class TokenJwtUtils {
 
     }
 
-    public static String generateToken(Client client) {
+    public static String generateToken(Customer customer) {
         TokenJwtSecret jwtSecret = SecretUtils.getTokenJwtSecret();
         return JWT.create()
             .withIssuer(jwtSecret.getIssuer())
             .withSubject("Audience")
-            .withClaim("clientId", client.getId())
-            .withClaim("cpf", client.getCpf())
+            .withClaim("customerId", customer.getId())
+            .withClaim("cpf", customer.getCpf())
             .withIssuedAt(new Date())
             .withExpiresAt(new Date(System.currentTimeMillis() + ADD_TIME_EXPIRATION))
             .withJWTId(UUID.randomUUID()
