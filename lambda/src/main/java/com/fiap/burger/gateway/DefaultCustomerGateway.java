@@ -17,7 +17,7 @@ import java.util.Optional;
 public class DefaultCustomerGateway {
     private static final String DYNAMODB_CUSTOMER_TABLE = System.getenv("CUSTOMER_TABLE");
     private static final Regions REGION = Regions.US_EAST_1;
-M    private static final String INDEX_NAME = "cpf";
+    private static final String INDEX_NAME = "cpf";
 
 
     public Optional<Customer> getCustomerId(String cpf) {
